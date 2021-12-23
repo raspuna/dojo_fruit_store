@@ -8,7 +8,12 @@ def index():
 @app.route('/checkout', methods=['POST'])         
 def checkout():
     print(request.form)
-    return render_template("checkout.html")
+    order_sum = 0
+    for el, val in request.form.items():
+        if el in ['apple', 'strawberry', 'raspberry', 'blackberry']:
+            order_sum += int(val)
+    print(f"Charging {request.form['first_name']} {request.form['last_name']} for {order_sum} fruits")
+    return render_template("checkout.html", order_sum=order_sum)
 
 @app.route('/fruits')         
 def fruits():
